@@ -55,40 +55,44 @@ start /b celery -A energy worker -l info
 Homewizard Energy Socket Unified API and Manager. 
 
 ## Description
-Homewizard energy sockets expose a API on port 80. To combine all these sockets in one API i created this project.
+Homewizard energy sockets expose a API on port 8000. To combine all your Homewizard Energy Sockets in one API.
 
 ## Visuals
+
 **Webinterface - List Sockets**
+
 ![Webinterface](docs/img/webinterface.png "Webinterface")
+
 **Webinterface - Edit Sockets**
+
 ![Edit form](docs/img/edit-form.png "Edit Form")
 
 
 ## Usage
 
 ### Webinterface
-http://IP:8000/
+http://<SERVER_IP>:8000/
 
 ### API / Webhooks
 
 **List all sockets**
 ```bash    
-http://IP:8000/api/sockets
+http://<SERVER_IP>:8000/api/sockets
 ```
 
 **Find new sockets**
 ```bash
-http://IP:8000/api/sockets/new
+http://<SERVER_IP>:8000/api/sockets/new
 ```
 
 **Refresh all sockets status**
 ```bash
-http://IP:8000/api/sockets/update
+http://<SERVER_IP>:8000/api/sockets/update
 ```
 
 **Update socket status**
 ```bash
-http://IP:8000/api/sockets/status/<int:id>/<str:status>
+http://<SERVER_IP>:8000/api/sockets/status/<int:id>/<str:status>
 
 # Example
 http://localhost:8000/api/socket/status/1/on
