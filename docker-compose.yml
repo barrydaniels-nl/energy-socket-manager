@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile-app
+    container_name: app
+    network_mode: "host"
+    environment:
+      - DEBUG=1
+      - TIME_ZONE=Europe/Amsterdam
+      - CELERY_BROKER_URL=redis://localhost:6379/0
+      - CELERY_RESULT_BACKEND=redis://localhost:6379/0
+      - CELERY_TIMEZONE=Europe/Amsterdam
+    depends_on:
+      - redis
+      - celery
+    volumes:
+      - .:/app
+  celery:
+    build: 
+      context: .
+      dockerfile: Dockerfile-celery
+    container_name: celery
+    network_mode: "host"
+    environment:
+      - DEBUG=1
+      - TIME_ZONE=Europe/Amsterdam
+      - CELERY_BROKER_URL=redis://localhost:6379/0
+      - CELERY_RESULT_BACKEND=redis://localhost:6379/0
+      - CELERY_TIMEZONE=Europe/Amsterdam          
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    network_mode: "host"

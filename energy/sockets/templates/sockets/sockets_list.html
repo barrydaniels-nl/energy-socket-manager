@@ -1,0 +1,70 @@
+{% extends "core/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Homewizard Energy Sockets</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-5">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-11">
+                
+                    <table class="table mb-4">
+                        <thead>
+                            <tr>
+                                <th scope="col">Network name</th>
+                                <th scope="col">Friendly name</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Serial</th>
+                                <th scope="col">IP</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for socket in sockets %}
+                            {% if socket.type == 'HWE-SKT' %}
+                            <tr>
+                                <td><p>{{ socket.network_name }}</p></td>
+                                <td><p>{{ socket.friendly_name }}</p></td>
+                                <td><p>{{ socket.type }}</p></td>
+                                <td><p>{{ socket.serial }}</p></td>
+                                <td><p>{{ socket.ip }}</p></td>
+                                <td>{% if socket.power_on == True %}<a href="{% url 'sockets:socket-status-change' id=socket.pk status='off' %}"><button class="btn btn-danger">Turn off</button></a>{% else %}<a href="{% url 'sockets:socket-status-change' id=socket.pk status='on' %}"><button class="btn btn-success">Turn On</button></a>{% endif %}</td>
+                                <td><a href="{% url 'sockets:sockets-update' pk=socket.pk %}"><button class="btn btn-primary">Edit</button></a></td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        <tbody>
+                    </table>
+                
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <a href="#"><button id="modalButton" data-bs-toggle="modal" data-bs-target="#refreshModal" class="btn btn-primary">Refresh sockets</button></a>
+            </div>
+    </div>
+
+    <!-- Refresh Modal HTML -->
+    <div id="refreshModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title text-center">Refreshing Energy Sockets</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="fs-2 text-center" id="refresh-timer">15</p>
+                </div>
+            </div>
+        </div>
+        </div>
+{% endblock %}

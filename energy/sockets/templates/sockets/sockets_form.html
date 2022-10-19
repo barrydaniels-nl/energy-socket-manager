@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Homewizard Energy Sockets</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form class="my-class" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input class="btn btn-success" type="submit" value="Update">
+                </form>  
+            </div>
+{% endblock %}
