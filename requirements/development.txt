@@ -1,6 +1,4 @@
--r base.txt
 amqp==5.1.1
-anyjson==0.3.3
 asgiref==3.5.2
 async-timeout==4.0.2
 billiard==3.6.4.0
